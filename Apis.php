@@ -153,4 +153,15 @@ class Apis
             return false; // Invalid mobile number format
         }
     }
+
+
+    public function getUserContacts(int $id): array
+    {
+        $query = "SELECT * FROM users WHERE user_id=:uid";
+        $userContacts = $this->db->query($query, [
+            'uid' => $id
+        ])->findAll();
+
+        return $userContacts;
+    }
 }

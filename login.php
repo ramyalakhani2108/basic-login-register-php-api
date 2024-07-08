@@ -29,6 +29,7 @@ $validatedLogin = $api->validateLogin($data);
 if ($validatedLogin) {
     $api->login($data);
     echo json_encode(['success' => 'logged in successfully ']);
+    header('Location: index.php');
 } else {
     echo json_encode(['error' => 'Missing required field username or password ']);
 }
