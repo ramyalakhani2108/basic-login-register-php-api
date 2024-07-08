@@ -139,4 +139,18 @@ class Apis
         // session_regenerate_id();
         $_SESSION['user_id'] = $user['id'];
     }
+
+    public function validatePhone(string $phone): bool
+    {
+
+        // Remove all non-digit characters (allowing only digits and optional leading +)
+        $cleanedNumber = preg_replace('/[^0-9+]/', '', $phone);
+        // print_r($cleanedNumber);
+        // Validate the format: optionally starting with + followed by digits
+        if (preg_match('/^\+?\d+$/', $cleanedNumber) || strlen($cleanedNumber) === 10) {
+            return true; // Valid mobile number format
+        } else {
+            return false; // Invalid mobile number format
+        }
+    }
 }

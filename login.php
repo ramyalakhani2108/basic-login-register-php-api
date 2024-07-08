@@ -10,8 +10,6 @@ $api = new Apis();
 
 $api->checkMethod();
 
-// $api->validateFields();
-
 
 $username = htmlspecialchars($_POST['username']);
 

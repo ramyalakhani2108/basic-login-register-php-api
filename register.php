@@ -19,7 +19,7 @@ $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 
 $password = htmlspecialchars($_POST['password']);
 
-$validatePass = $api->validatePass($password); //common validating password
+$api->validatePass($password); //common validating password
 
 $formattedErrors = $api->getMessage();
 if (!empty($formattedErrors)) {
@@ -28,7 +28,11 @@ if (!empty($formattedErrors)) {
 }
 
 $phone = htmlspecialchars($_POST['phone']);
-
+$validatePhone = $api->validatePhone($phone);
+// echo $validatePhone;
+if (!$validatePhone) {
+    echo json_encode(['errors' => 'Please check entered phone number']);
+}
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 $data = [
