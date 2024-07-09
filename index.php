@@ -20,8 +20,8 @@ try {
         echo json_encode(['error' => 'No contacts found for the user']);
         exit;
     }
-
-    echo json_encode($userContacts);
+    header('Content-type: JSON');
+    echo json_encode($userContacts, JSON_PRETTY_PRINT);
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);

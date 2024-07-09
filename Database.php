@@ -13,6 +13,10 @@ class Database
     private PDO $connection;
     private PDOStatement $stmt;
 
+    public function getConnection()
+    {
+        return $this->connection;
+    }
     public function __construct(string $driver, array $config, string $username, string $password)
     {
         $configuration = http_build_query(data: $config, arg_separator: ";"); //this will create configuration string
@@ -30,7 +34,7 @@ class Database
     {
         $this->stmt = $this->connection->prepare($query);
         $this->stmt->execute($params);
-        // print_r($this->stmt);
+
         // echo $this->stmt;
 
         return $this; //returning isntance to apply method chaining
@@ -48,5 +52,20 @@ class Database
     public function findAll()
     {
         return $this->stmt->fetchAll();
+    }
+
+    public function deletionTransaction(string $query, array $params)
+    {
+        // Prepare the statement
+        $this->stmt = $this->connection->prepare($query);
+
+        // Bind the IDs as parameters
+        foreach ($params as $key => $id) {
+            $this->stmt->bindValue(":id$key", $id); // Bind each ID as an integer
+        }
+        $this->stmt->bindValue(':uid', 1); // Replace with actual user_id
+
+        // Execute the statement
+        $this->stmt->execute();
     }
 }
