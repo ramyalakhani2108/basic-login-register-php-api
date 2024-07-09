@@ -27,7 +27,8 @@ class Database
             $this->connection = new PDO($dsn, $username, $password, [PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]);
             // echo "we have connected with the database";
         } catch (PDOException $e) {
-            die("Unable to connect Database");
+            echo json_encode(['Error' => 'Unable to connect Database']);
+            die();
         }
     }
     public function query(string $query, array $params = []): Database
@@ -63,7 +64,7 @@ class Database
         foreach ($params as $key => $id) {
             $this->stmt->bindValue(":id$key", $id); // Bind each ID as an integer
         }
-        $this->stmt->bindValue(':uid', 1); // Replace with actual user_id
+        $this->stmt->bindValue(':uid', $_SESSION['user_id']); // Replace with actual user_id
 
         // Execute the statement
         $this->stmt->execute();

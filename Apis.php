@@ -63,7 +63,7 @@ class Apis
             // Commit the transaction
             $connection->commit();
 
-            echo json_encode('Deleted Successfully');
+            echo json_encode(['success' => 'Deleted Successfully']);
         } catch (PDOException $e) {
             // Rollback the transaction on error
             $connection->rollback();
@@ -238,7 +238,7 @@ class Apis
                 'phn' => $data['phone'] ?? '',
                 'eml' => $data['email'] ?? '',
                 // 'uid' => $_SESSION['user_id'],
-                'uid' => 3
+                'uid' => $_SESSION['user_id']
             ]);
         } catch (PDOException $e) {
             echo json_encode(['error' => 'check the fields again']);

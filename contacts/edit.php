@@ -39,5 +39,5 @@ if ($email !== null) {
 } else {
     echo json_encode(['error' => 'Please enter email address']);
 }
-echo json_encode(['updated_successfully ']);
+echo json_encode(['success' => 'updated_successfully ']);
 header("Location: ../index.php");
